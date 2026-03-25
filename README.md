@@ -1,7 +1,7 @@
 # Intersect Chess Instrument Control Service
 
 INTERSECT Spec Service for CHESS. Receives next-point recommendations from
-[Dial](../dial) (via the campaign orchestrator) and writes motor position files
+[Dial](https://github.com/INTERSECT-DIAL/dial) (via the campaign orchestrator) and writes motor position files
 that SPEC reads at the beamline.
 
 ## Architecture Role
