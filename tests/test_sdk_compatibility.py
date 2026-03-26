@@ -7,14 +7,11 @@ These tests validate that:
 """
 
 import ast
-import inspect
 import re
 from pathlib import Path
 
-import pytest
 from intersect_sdk import (
     HierarchyConfig,
-    IntersectBaseCapabilityImplementation,
     get_schema_from_capability_implementations,
 )
 
@@ -41,7 +38,9 @@ class TestCapabilityNameValid:
 
     def test_capability_name_matches_sdk_regex(self):
         name = ChessInstrumentControlCapability.intersect_sdk_capability_name
-        assert isinstance(name, str) and name, "intersect_sdk_capability_name must be a non-empty string"
+        assert isinstance(name, str) and name, (
+            "intersect_sdk_capability_name must be a non-empty string"
+        )
         assert self.SDK_NAME_REGEX.fullmatch(name), (
             f"intersect_sdk_capability_name '{name}' does not satisfy SDK regex "
             f"{self.SDK_NAME_REGEX.pattern!r} — hyphens are not allowed, use underscores"
