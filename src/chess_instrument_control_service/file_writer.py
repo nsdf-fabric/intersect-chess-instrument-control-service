@@ -11,6 +11,13 @@ def initialize_experiment(experiment_name: str, base_dir: str) -> Path:
 
     Returns the experiment directory path.
     """
+    # Restrict experiment_name to a safe set of characters to avoid path traversal
+    # and ensure it represents a single directory name.
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", experiment_name):
+        raise ValueError(
+            f"Invalid experiment_name {experiment_name!r}. "
+            "Only letters, digits, underscores, and hyphens are allowed."
+        )
     experiment_dir = Path(base_dir) / "autonomous_experiment" / experiment_name
     experiment_dir.mkdir(parents=True, exist_ok=True)
     return experiment_dir
