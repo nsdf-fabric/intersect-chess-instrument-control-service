@@ -5,7 +5,7 @@ from chess_instrument_control_service.service import ChessInstrumentControlCapab
 class TestChessInstrumentControlCapabilityInit:
     def test_capability_has_correct_name(self):
         capability = ChessInstrumentControlCapability()
-        assert capability.intersect_sdk_capability_name == "chess-instrument-control"
+        assert capability.intersect_sdk_capability_name == "chess_instrument_control"
 
     def test_initial_status_is_ready(self):
         capability = ChessInstrumentControlCapability()

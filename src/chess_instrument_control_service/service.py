@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import logging
 from pathlib import Path
 
@@ -18,7 +16,7 @@ logger = logging.getLogger(__name__)
 class ChessInstrumentControlCapability(IntersectBaseCapabilityImplementation):
     """INTERSECT capability that writes motor position files for SPEC."""
 
-    intersect_sdk_capability_name = "chess-instrument-control"
+    intersect_sdk_capability_name = "chess_instrument_control"
 
     def __init__(self):
         super().__init__()
