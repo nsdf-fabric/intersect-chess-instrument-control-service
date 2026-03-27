@@ -9,6 +9,8 @@ COPY src /app/src
 
 RUN uv sync --frozen --no-dev
 
+ENV PATH="/app/.venv/bin:$PATH"
+
 COPY scripts /app/scripts
 COPY local-conf.json /app/local-conf.json
 
