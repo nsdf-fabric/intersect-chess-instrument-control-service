@@ -1,7 +1,7 @@
 """Tests that catch intersect-sdk compatibility issues early.
 
 These tests validate that:
-1. The capability name matches SDK 0.8+ regex (alphanumeric + underscores only).
+1. The capability name matches SDK 0.9+ regex (alphanumeric + underscores only).
 2. All @intersect_message parameter/return type annotations are resolvable at
    runtime (i.e. not lazily stringified by ``from __future__ import annotations``).
 """
@@ -29,10 +29,10 @@ HIERARCHY = HierarchyConfig(
 
 
 # ------------------------------------------------------------------
-# 1. Capability name must satisfy SDK 0.8+ regex
+# 1. Capability name must satisfy SDK 0.9+ regex
 # ------------------------------------------------------------------
 class TestCapabilityNameValid:
-    """SDK 0.8+ requires names matching ^[a-zA-Z0-9]\\w*$ (no hyphens)."""
+    """SDK 0.9+ requires names matching ^[a-zA-Z0-9]\\w*$ (no hyphens)."""
 
     SDK_NAME_REGEX = re.compile(r"^[a-zA-Z0-9]\w*$")
 

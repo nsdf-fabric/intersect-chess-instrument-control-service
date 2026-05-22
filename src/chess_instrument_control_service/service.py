@@ -17,6 +17,7 @@ class ChessInstrumentControlCapability(IntersectBaseCapabilityImplementation):
     """INTERSECT capability that writes motor position files for SPEC."""
 
     intersect_sdk_capability_name = "chess_instrument_control"
+    intersect_sdk_events = {}
 
     def __init__(self):
         super().__init__()
