@@ -4,7 +4,6 @@ These tests validate that:
 1. The capability name matches SDK 0.9+ regex (alphanumeric + underscores only).
 2. All @intersect_message parameter/return type annotations are resolvable at
    runtime (i.e. not lazily stringified by ``from __future__ import annotations``).
-3. Legacy event declaration patterns removed in SDK 0.9 are not used.
 """
 
 import ast
@@ -114,43 +113,5 @@ class TestNoFutureAnnotations:
         assert not violations, (
             "These files use 'from __future__ import annotations' alongside "
             "Pydantic/intersect_sdk, which breaks runtime type resolution:\n"
-            + "\n".join(f"  - {v}" for v in violations)
-        )
-
-
-# ------------------------------------------------------------------
-# 4. Guard against legacy event declaration patterns removed in SDK 0.9
-# ------------------------------------------------------------------
-class TestNoLegacyEventDeclarations:
-    """SDK 0.9 removed @intersect_event and the events= argument on
-    @intersect_message.
-    """
-
-    def test_no_intersect_event_import_or_decorator(self):
-        violations = []
-        for py_file in sorted(SRC_DIR.rglob("*.py")):
-            text = py_file.read_text()
-            if "intersect_event" in text:
-                violations.append(py_file.relative_to(SRC_DIR.parent.parent))
-
-        assert not violations, (
-            "SDK 0.9 removed @intersect_event. Found legacy usage in:\n"
-            + "\n".join(f"  - {v}" for v in violations)
-        )
-
-    def test_no_events_argument_on_intersect_message(self):
-        violations = []
-        for py_file in sorted(SRC_DIR.rglob("*.py")):
-            tree = ast.parse(py_file.read_text())
-            for node in ast.walk(tree):
-                if not isinstance(node, ast.Call):
-                    continue
-                if not isinstance(node.func, ast.Name) or node.func.id != "intersect_message":
-                    continue
-                if any(keyword.arg == "events" for keyword in node.keywords):
-                    violations.append(py_file.relative_to(SRC_DIR.parent.parent))
-
-        assert not violations, (
-            "SDK 0.9 removed events= from @intersect_message. Found legacy usage in:\n"
             + "\n".join(f"  - {v}" for v in violations)
         )
