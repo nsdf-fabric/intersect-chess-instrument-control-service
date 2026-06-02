@@ -21,7 +21,6 @@ When initialized for an experiment, this service creates:
 
 ```
 <base_dir>/
-  autonomous_experiment/
     <experiment_name>/
       loc001.txt
       loc002.txt
