@@ -6,21 +6,21 @@ from chess_instrument_control_service.file_writer import initialize_experiment, 
 class TestInitializeExperiment:
     def test_creates_experiment_directory(self, tmp_path):
         result = initialize_experiment("experiment1", str(tmp_path))
-        expected = tmp_path / "autonomous_experiment" / "experiment1"
+        expected = tmp_path / "experiment1"
         assert expected.is_dir()
         assert result == expected
 
     def test_creates_nested_directories(self, tmp_path):
         base = tmp_path / "deep" / "nested"
         initialize_experiment("experiment1", str(base))
-        expected = base / "autonomous_experiment" / "experiment1"
+        expected = base / "experiment1"
         assert expected.is_dir()
 
     def test_returns_experiment_path(self, tmp_path):
         result = initialize_experiment("experiment1", str(tmp_path))
         assert isinstance(result, Path)
         assert result.name == "experiment1"
-        assert result.parent.name == "autonomous_experiment"
+        
 
     def test_idempotent_on_existing_directory(self, tmp_path):
         """Calling initialize_experiment twice should not error."""
@@ -31,7 +31,7 @@ class TestInitializeExperiment:
 
 class TestWriteMotorPosition:
     def test_writes_first_location_file(self, tmp_path):
-        experiment_dir = tmp_path / "autonomous_experiment" / "experiment1"
+        experiment_dir = tmp_path / "experiment1"
         experiment_dir.mkdir(parents=True)
 
         path = write_motor_position(experiment_dir, labx=-47.33, labz=-242.5)
@@ -43,7 +43,7 @@ class TestWriteMotorPosition:
         assert lines[1] == "-47.33,-242.5"
 
     def test_sequential_numbering(self, tmp_path):
-        experiment_dir = tmp_path / "autonomous_experiment" / "experiment1"
+        experiment_dir = tmp_path / "experiment1"
         experiment_dir.mkdir(parents=True)
 
         path1 = write_motor_position(experiment_dir, labx=1.0, labz=2.0)
@@ -59,7 +59,7 @@ class TestWriteMotorPosition:
         chess_instrument_control_informer.locations.parse_location_file()
         which expects: header 'labx,labz' then 'float,float' rows.
         """
-        experiment_dir = tmp_path / "autonomous_experiment" / "experiment1"
+        experiment_dir = tmp_path / "experiment1"
         experiment_dir.mkdir(parents=True)
 
         write_motor_position(experiment_dir, labx=10.5, labz=-20.3)
@@ -75,7 +75,7 @@ class TestWriteMotorPosition:
         assert float(parts[1]) == -20.3
 
     def test_returns_written_path(self, tmp_path):
-        experiment_dir = tmp_path / "autonomous_experiment" / "experiment1"
+        experiment_dir = tmp_path / "experiment1"
         experiment_dir.mkdir(parents=True)
 
         path = write_motor_position(experiment_dir, labx=1.0, labz=2.0)
@@ -84,7 +84,7 @@ class TestWriteMotorPosition:
 
     def test_auto_detects_existing_files_for_numbering(self, tmp_path):
         """If loc001.txt already exists, the next write should be loc002.txt."""
-        experiment_dir = tmp_path / "autonomous_experiment" / "experiment1"
+        experiment_dir = tmp_path / "experiment1"
         experiment_dir.mkdir(parents=True)
 
         # Manually create loc001.txt

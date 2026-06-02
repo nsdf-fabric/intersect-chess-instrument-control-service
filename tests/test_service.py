@@ -20,7 +20,7 @@ class TestChessInstrumentControlCapabilityInitExperiment:
             base_dir=str(tmp_path),
         )
         result = capability.initialize_experiment(config)
-        expected = tmp_path / "autonomous_experiment" / "experiment1"
+        expected = tmp_path / "experiment1"
         assert expected.is_dir()
         assert "experiment1" in result
 
@@ -46,7 +46,7 @@ class TestChessInstrumentControlCapabilityWriteMotorPosition:
         position = MotorPosition(labx=-47.33, labz=-242.5)
         result = capability.write_motor_position(position)
 
-        expected_file = tmp_path / "autonomous_experiment" / "experiment1" / "loc001.txt"
+        expected_file = tmp_path / "experiment1" / "loc001.txt"
         assert expected_file.exists()
         assert "loc001.txt" in result
 

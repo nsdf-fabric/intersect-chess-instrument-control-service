@@ -16,7 +16,7 @@ def initialize_experiment(experiment_name: str, base_dir: str) -> Path:
             f"Invalid experiment_name {experiment_name!r}. "
             "Only letters, digits, underscores, and hyphens are allowed."
         )
-    experiment_dir = Path(base_dir) / "autonomous_experiment" / experiment_name
+    experiment_dir = Path(base_dir) / experiment_name
     experiment_dir.mkdir(parents=True, exist_ok=True)
     return experiment_dir
 
