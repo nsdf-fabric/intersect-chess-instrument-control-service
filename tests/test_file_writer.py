@@ -20,7 +20,6 @@ class TestInitializeExperiment:
         result = initialize_experiment("experiment1", str(tmp_path))
         assert isinstance(result, Path)
         assert result.name == "experiment1"
-        
 
     def test_idempotent_on_existing_directory(self, tmp_path):
         """Calling initialize_experiment twice should not error."""
