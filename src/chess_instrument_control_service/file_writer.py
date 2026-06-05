@@ -5,7 +5,7 @@ from pathlib import Path
 def initialize_experiment(experiment_name: str, base_dir: str) -> Path:
     """Create the directory structure for an autonomous experiment.
 
-    Creates: <base_dir>/autonomous_experiment/<experiment_name>/
+    Creates: <base_dir>/<experiment_name>/
 
     Returns the experiment directory path.
     """
